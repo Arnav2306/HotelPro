@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getMyBookings, cancelBooking } from '../api/bookings';
 import { STATUS_BADGE, formatDate } from './BookingModal';
+import { formatINR } from '../utils/formatCurrency';
 
 const MyBookings = ({ isOpen, onClose }) => {
   const [bookings, setBookings] = useState([]);
@@ -100,16 +101,16 @@ const MyBookings = ({ isOpen, onClose }) => {
                   <div key={booking._id} className="border rounded-4 overflow-hidden">
                     <div className="row g-0">
                       {booking.room?.image && (
-                        <div className="col-4 col-md-3">
+                        <div className="col-12 col-sm-4 col-md-3">
                           <img
                             src={booking.room.image}
                             alt={booking.room?.title}
                             className="w-100 h-100"
-                            style={{ objectFit: 'cover', minHeight: '110px' }}
+                            style={{ objectFit: 'cover', minHeight: '120px', maxHeight: '180px' }}
                           />
                         </div>
                       )}
-                      <div className={booking.room?.image ? 'col-8 col-md-9' : 'col-12'}>
+                      <div className={booking.room?.image ? 'col-12 col-sm-8 col-md-9' : 'col-12'}>
                         <div className="p-3">
                           <div className="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
                             <div>
@@ -134,7 +135,7 @@ const MyBookings = ({ isOpen, onClose }) => {
                               &nbsp;&bull;&nbsp;
                               <i className="bi bi-moon-stars me-1"></i>{booking.nights} night{booking.nights !== 1 ? 's' : ''}
                               &nbsp;&bull;&nbsp;
-                              <strong className="text-dark">${booking.totalAmount?.toLocaleString()}</strong>
+                              <strong className="text-dark">{formatINR(booking.totalAmount)}</strong>
                             </div>
 
                             {booking.bookingStatus === 'confirmed' && (

@@ -14,6 +14,7 @@ import AdminDashboard from './components/AdminDashboard';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { mockRooms } from './data/mockRooms';
 import api from './api/axios';
+import { formatINR } from './utils/formatCurrency';
 
 function MainApp() {
   const [serverHealth, setServerHealth] = useState(null);
@@ -167,6 +168,7 @@ function MainApp() {
         <StaffDashboard
           isOpen={dashboardOpen}
           onClose={() => setDashboardOpen(false)}
+          userRole={user.role}
         />
       )}
       {user?.role === 'admin' && (
@@ -185,7 +187,7 @@ function MainApp() {
           role="dialog"
           aria-modal="true"
         >
-          <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div className="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
               <div className="modal-header bg-dark text-white border-0 px-4 py-3">
                 <h5 className="modal-title font-serif fw-bold">{selectedRoom.title}</h5>
@@ -209,7 +211,7 @@ function MainApp() {
                       {selectedRoom.category}
                     </span>
                     <div className="text-end">
-                      <span className="fs-3 fw-bold text-dark">${selectedRoom.price}</span>
+                      <span className="fs-3 fw-bold text-dark">{formatINR(selectedRoom.price)}</span>
                       <span className="text-muted small"> / night</span>
                     </div>
                   </div>
@@ -220,7 +222,7 @@ function MainApp() {
                   </p>
 
                   <div className="row g-3 mb-4">
-                    <div className="col-4">
+                    <div className="col-12 col-sm-4">
                       <div className="p-2 border rounded text-center">
                         <small className="text-muted d-block">Capacity</small>
                         <strong className="small">
@@ -230,13 +232,13 @@ function MainApp() {
                         </strong>
                       </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-12 col-sm-4">
                       <div className="p-2 border rounded text-center">
                         <small className="text-muted d-block">Bed Type</small>
                         <strong className="small">{selectedRoom.bed || '1 King Bed'}</strong>
                       </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-12 col-sm-4">
                       <div className="p-2 border rounded text-center">
                         <small className="text-muted d-block">Dimensions</small>
                         <strong className="small">{selectedRoom.size || '60 m²'}</strong>
@@ -255,7 +257,7 @@ function MainApp() {
                       ))}
                   </div>
 
-                  <div className="d-flex justify-content-end gap-2 pt-3 border-top">
+                  <div className="d-flex flex-column flex-sm-row justify-content-sm-end gap-2 pt-3 border-top">
                     <button
                       type="button"
                       className="btn btn-outline-secondary"

@@ -7,13 +7,14 @@ import {
   clearAuthCookie,
   authenticateUser
 } from '../middleware/auth.js';
+import { authRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// POST /api/auth/register
-router.post('/register', async (req, res) => {
+// POST /api/auth/register (Rate limited)
+router.post('/register', authRateLimiter, async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -66,8 +67,8 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// POST /api/auth/login
-router.post('/login', async (req, res) => {
+// POST /api/auth/login (Rate limited)
+router.post('/login', authRateLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
 

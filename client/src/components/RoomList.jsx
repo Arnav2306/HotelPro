@@ -65,13 +65,29 @@ const RoomList = ({
           </div>
         </div>
 
-        {/* Loading State */}
+        {/* Loading Skeleton Grid */}
         {loading ? (
-          <div className="text-center py-5">
-            <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}>
-              <span className="visually-hidden">Loading suites...</span>
-            </div>
-            <p className="text-muted small mt-3">Searching available suites...</p>
+          <div className="row g-4" aria-busy="true" aria-label="Loading accommodations">
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="col-12 col-md-6 col-lg-4">
+                <div className="card h-100 border-0 shadow-sm hp-skeleton-card overflow-hidden">
+                  <div className="hp-skeleton" style={{ height: '230px', width: '100%' }}></div>
+                  <div className="card-body p-4 d-flex flex-column gap-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="hp-skeleton rounded" style={{ height: '18px', width: '45%' }}></div>
+                      <div className="hp-skeleton rounded-pill" style={{ height: '20px', width: '25%' }}></div>
+                    </div>
+                    <div className="hp-skeleton rounded" style={{ height: '24px', width: '70%' }}></div>
+                    <div className="hp-skeleton rounded" style={{ height: '14px', width: '90%' }}></div>
+                    <div className="hp-skeleton rounded" style={{ height: '14px', width: '60%' }}></div>
+                    <div className="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                      <div className="hp-skeleton rounded" style={{ height: '22px', width: '35%' }}></div>
+                      <div className="hp-skeleton rounded-pill" style={{ height: '36px', width: '35%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           /* Rooms Grid */

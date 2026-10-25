@@ -47,7 +47,7 @@ const bookingSchema = new mongoose.Schema(
     },
     paymentStatus: {
       type: String,
-      enum: ['pending', 'paid', 'refunded'],
+      enum: ['pending', 'paid', 'partially_refunded', 'refunded'],
       default: 'pending'
     },
     specialRequests: {
@@ -64,7 +64,7 @@ const bookingSchema = new mongoose.Schema(
   }
 );
 
-// Compound index to optimize date collision lookups
+// Compound index to optimize date collision lookups and availability searches
 bookingSchema.index({ room: 1, bookingStatus: 1, checkIn: 1, checkOut: 1 });
 
 // Helper to check valid status transitions

@@ -67,6 +67,9 @@ npm run dev                  # Starts on http://localhost:5173
 | `NODE_ENV` | No | `development` or `production` |
 | `JWT_SECRET` | **Yes** | Long random secret for JWT signing |
 | `JWT_EXPIRES_IN` | No | Token lifetime (default: `7d`) |
+| `RAZORPAY_KEY_ID` | **Yes** (payments) | Razorpay Key ID (`rzp_test_...` or `rzp_live_...`) |
+| `RAZORPAY_KEY_SECRET` | **Yes** (payments) | Razorpay Key Secret |
+| `RAZORPAY_WEBHOOK_SECRET` | **Yes** (webhooks) | Razorpay webhook signing secret |
 
 **MongoDB Atlas URI format:**
 ```
@@ -86,14 +89,17 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ---
 
-## Demo Payment
+## Payment Integration (Razorpay)
 
-The payment flow is a **demo only**. No real money is charged and no card data is collected or stored. The `POST /api/payments/demo/:bookingId` endpoint:
-- Creates a `Payment` record with `provider: "demo"`
-- Updates `booking.paymentStatus` to `"paid"`
-- Returns a fake transaction ID prefixed `HPDEMO-`
+HotelPro uses [Razorpay](https://razorpay.com) for payment processing in INR.
 
-This must be replaced with a real payment gateway (Stripe, Razorpay, etc.) before going live.
+- Configure `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` in `server/.env`.
+- Use `rzp_test_...` keys for development and `rzp_live_...` keys in production.
+- The server blocks live keys outside of `NODE_ENV=production` as a safety guard.
+- Configure your webhook URL in the Razorpay dashboard: `https://<your-domain>/api/payments/webhook`
+- Set `RAZORPAY_WEBHOOK_SECRET` in `server/.env` to match the webhook signing secret.
+
+**Demo fallback:** When Razorpay keys are not configured (local dev), a demo payment mode is available via `POST /api/payments/demo/:bookingId`. Demo mode is automatically disabled in production.
 
 ---
 
@@ -117,8 +123,15 @@ This must be replaced with a real payment gateway (Stripe, Razorpay, etc.) befor
 | `PATCH /api/bookings/:id/cancel` | Cancel booking |
 | `GET /api/bookings` | All bookings (staff/admin) |
 | `PATCH /api/bookings/:id/status` | Check-in / check-out (staff/admin) |
-| `POST /api/payments/demo/:bookingId` | Demo payment |
+| `GET /api/payments/config` | Payment gateway config (public key, mode) |
+| `POST /api/payments/create-order/:bookingId` | Create Razorpay order |
+| `POST /api/payments/verify` | Verify Razorpay signature and confirm payment |
+| `POST /api/payments/webhook` | Razorpay webhook handler |
+| `POST /api/payments/demo/:bookingId` | Demo payment (dev only) |
 | `GET /api/payments/booking/:bookingId` | Booking payment info |
+| `POST /api/payments/refund/:bookingId` | Initiate refund (staff/admin) |
+| `GET /api/payments/refunds/:bookingId` | Refund history for booking |
+| `GET /api/payments/reconcile/:bookingId` | Reconcile with Razorpay gateway (staff/admin) |
 | `GET /api/dashboard/guest` | Guest dashboard |
 | `GET /api/dashboard/staff` | Staff dashboard (staff/admin) |
 | `GET /api/dashboard/admin` | Admin metrics (admin) |

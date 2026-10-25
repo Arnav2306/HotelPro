@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard }) => {
   const { user, logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleNav = () => setIsOpen((prev) => !prev);
+  const closeNav = () => setIsOpen(false);
+
+  const handleAction = (callback) => {
+    closeNav();
+    if (callback) callback();
+  };
 
   const getRoleBadgeClass = (role) => {
     switch (role) {
@@ -27,7 +36,7 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
   return (
     <nav className="navbar navbar-expand-lg navbar-dark navbar-hotelpro sticky-top py-3">
       <div className="container">
-        <a className="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="#home">
+        <a className="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="#home" onClick={closeNav}>
           <i className="bi bi-buildings brand-accent fs-3"></i>
           <span>Hotel<span className="brand-accent">Pro</span></span>
         </a>
@@ -35,31 +44,46 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
         <button
           className="navbar-toggler border-0"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
+          onClick={toggleNav}
           aria-controls="navbarContent"
-          aria-expanded="false"
+          aria-expanded={isOpen}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarContent">
+        <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
-            <li className="nav-item"><a className="nav-link active text-white" href="#home">Home</a></li>
-            <li className="nav-item"><a className="nav-link text-white-50" href="#rooms">Rooms & Suites</a></li>
-            <li className="nav-item"><a className="nav-link text-white-50" href="#amenities">Amenities</a></li>
-            <li className="nav-item"><a className="nav-link text-white-50" href="#about">About</a></li>
-            <li className="nav-item"><a className="nav-link text-white-50" href="#contact">Contact</a></li>
+            <li className="nav-item">
+              <a className="nav-link active text-white" href="#home" onClick={closeNav}>Home</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white-50" href="#rooms" onClick={closeNav}>Rooms & Suites</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white-50" href="#amenities" onClick={closeNav}>Amenities</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white-50" href="#about" onClick={closeNav}>About</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white-50" href="#contact" onClick={closeNav}>Contact</a>
+            </li>
             {user && (
               <>
                 <li className="nav-item">
-                  <button className="nav-link text-white-50 btn btn-link border-0 p-0" onClick={onOpenMyBookings}>
+                  <button
+                    className="nav-link text-white-50 btn btn-link border-0 p-0 text-start"
+                    onClick={() => handleAction(onOpenMyBookings)}
+                  >
                     <i className="bi bi-calendar2-check me-1"></i>My Stays
                   </button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-white-50 btn btn-link border-0 p-0" onClick={onOpenDashboard}>
+                  <button
+                    className="nav-link text-white-50 btn btn-link border-0 p-0 text-start"
+                    onClick={() => handleAction(onOpenDashboard)}
+                  >
                     <i className={`bi ${dashboardIcon} me-1`}></i>{dashboardLabel}
                   </button>
                 </li>
@@ -67,7 +91,7 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
             )}
           </ul>
 
-          <div className="d-flex align-items-center gap-3 flex-wrap">
+          <div className="d-flex align-items-center gap-2 flex-wrap">
             {serverHealth && (
               <span
                 className={`badge d-none d-xl-inline-flex align-items-center gap-1 ${
@@ -83,27 +107,36 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
             )}
 
             {user ? (
-              <div className="d-flex align-items-center gap-2">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
                 <div className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-dark border border-secondary border-opacity-50 text-white">
                   <i className="bi bi-person-circle fs-5 brand-accent"></i>
                   <div className="d-flex flex-column text-start">
-                    <span className="fw-semibold small text-white lh-1">{user.name}</span>
+                    <span className="fw-semibold small text-white lh-1 text-truncate" style={{ maxWidth: '120px' }}>
+                      {user.name}
+                    </span>
                     <span className={`badge ${getRoleBadgeClass(user.role)} mt-1 py-0 px-1`} style={{ fontSize: '0.65rem' }}>
                       {user.role?.toUpperCase()}
                     </span>
                   </div>
                 </div>
-                <button onClick={logout} className="btn btn-outline-light btn-sm px-3 py-2 rounded-pill" title="Sign out">
+                <button
+                  onClick={() => handleAction(logout)}
+                  className="btn btn-outline-light btn-sm px-3 py-2 rounded-pill"
+                  title="Sign out"
+                >
                   <i className="bi bi-box-arrow-right me-1"></i>Logout
                 </button>
               </div>
             ) : (
-              <button onClick={() => onOpenAuth('login')} className="btn btn-outline-light btn-sm px-3 py-2 rounded-pill">
+              <button
+                onClick={() => handleAction(() => onOpenAuth('login'))}
+                className="btn btn-outline-light btn-sm px-3 py-2 rounded-pill"
+              >
                 <i className="bi bi-person me-1"></i>Sign In
               </button>
             )}
 
-            <a href="#search" className="btn btn-hotelpro-gold btn-sm px-3 py-2">
+            <a href="#search" onClick={closeNav} className="btn btn-hotelpro-gold btn-sm px-3 py-2">
               <i className="bi bi-calendar2-check me-1"></i>Book Now
             </a>
           </div>

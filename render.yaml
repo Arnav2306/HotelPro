@@ -19,3 +19,9 @@ services:
         value: 7d
       - key: CLIENT_URL
         sync: false  # Set to your Vercel frontend URL in Render dashboard
+      - key: RAZORPAY_KEY_ID
+        sync: false  # Set in Render dashboard — use rzp_live_... in production
+      - key: RAZORPAY_KEY_SECRET
+        sync: false  # Set in Render dashboard — never hardcode
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false  # Set in Render dashboard — must match Razorpay dashboard webhook secret

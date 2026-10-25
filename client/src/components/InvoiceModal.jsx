@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { formatINR } from '../utils/formatCurrency';
 
 const formatDate = (d) =>
   d ? new Date(d).toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : '—';
@@ -93,11 +94,11 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
 
               {/* Billing Info */}
               <div className="row g-3 mb-4">
-                <div className="col-6">
+                <div className="col-12 col-sm-6">
                   <div className="text-uppercase text-muted small fw-semibold mb-1">Bill To</div>
                   <div className="fw-semibold">{guestName || 'Guest'}</div>
                 </div>
-                <div className="col-6 text-md-end">
+                <div className="col-12 col-sm-6 text-sm-end">
                   <div className="text-uppercase text-muted small fw-semibold mb-1">Stay Details</div>
                   <div className="small">
                     <div><i className="bi bi-calendar-event me-1"></i>Check-In: {formatDate(booking.checkIn)}</div>
@@ -115,30 +116,32 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
               </div>
 
               {/* Line Items */}
-              <table className="table table-sm mb-0">
-                <thead>
-                  <tr className="bg-light">
-                    <th>Description</th>
-                    <th className="text-end">Qty</th>
-                    <th className="text-end">Unit Price</th>
-                    <th className="text-end">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Nightly Rate — {room.title || 'Suite'}</td>
-                    <td className="text-end">{nights} night{nights !== 1 ? 's' : ''}</td>
-                    <td className="text-end">₹{nightlyPrice.toLocaleString('en-IN')}</td>
-                    <td className="text-end">₹{(nightlyPrice * nights).toLocaleString('en-IN')}</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="3" className="text-end fw-bold">Total</td>
-                    <td className="text-end fw-bold fs-5">₹{totalAmount.toLocaleString('en-IN')}</td>
-                  </tr>
-                </tfoot>
-              </table>
+              <div className="table-responsive">
+                <table className="table table-sm mb-0">
+                  <thead>
+                    <tr className="bg-light">
+                      <th>Description</th>
+                      <th className="text-end">Qty</th>
+                      <th className="text-end">Unit Price</th>
+                      <th className="text-end">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Nightly Rate — {room.title || 'Suite'}</td>
+                      <td className="text-end">{nights} night{nights !== 1 ? 's' : ''}</td>
+                      <td className="text-end">{formatINR(nightlyPrice, true)}</td>
+                      <td className="text-end">{formatINR(nightlyPrice * nights, true)}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colSpan="3" className="text-end fw-bold">Total</td>
+                      <td className="text-end fw-bold fs-5">{formatINR(totalAmount, true)}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
 
               {/* Payment Info */}
               <div className="mt-4 pt-3 border-top">
@@ -148,9 +151,13 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
                     <span className={`badge rounded-pill px-3 py-2 fw-semibold ${
                       booking.paymentStatus === 'paid'
                         ? 'bg-success-subtle text-success border border-success-subtle'
+                        : booking.paymentStatus === 'partially_refunded'
+                        ? 'bg-info-subtle text-info border border-info-subtle'
+                        : booking.paymentStatus === 'refunded'
+                        ? 'bg-danger-subtle text-danger border border-danger-subtle'
                         : 'bg-warning-subtle text-warning border border-warning-subtle'
                     }`}>
-                      {booking.paymentStatus?.toUpperCase() || 'PENDING'}
+                      {booking.paymentStatus?.replace('_', ' ').toUpperCase() || 'PENDING'}
                     </span>
                   </div>
                   {payment?.transactionId && (
@@ -160,13 +167,28 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
                     </div>
                   )}
                 </div>
+                {payment?.amountRefunded > 0 && (
+                  <div className="alert alert-info py-2 px-3 small mt-3 mb-1 d-flex justify-content-between align-items-center">
+                    <div>
+                      <i className="bi bi-arrow-counterclockwise me-1"></i>
+                      <span>Amount Refunded: <strong>{formatINR(payment.amountRefunded, true)}</strong></span>
+                    </div>
+                    <div>
+                      <span>Net Settled: <strong>{formatINR(Math.max(0, (payment.amount || booking.totalAmount) - payment.amountRefunded), true)}</strong></span>
+                    </div>
+                  </div>
+                )}
                 {payment?.paidAt && (
                   <div className="text-muted small mt-2">
                     <i className="bi bi-check-circle-fill text-success me-1"></i>
                     Paid on {formatDate(payment.paidAt)}
-                    {payment.provider === 'demo' && (
+                    {payment.provider === 'demo' ? (
                       <span className="badge bg-secondary-subtle text-secondary border ms-2 fw-normal" style={{ fontSize: '0.7rem' }}>
                         DEMO PAYMENT
+                      </span>
+                    ) : (
+                      <span className="badge bg-primary-subtle text-primary border ms-2 fw-normal" style={{ fontSize: '0.7rem' }}>
+                        <i className="bi bi-shield-check me-1"></i>RAZORPAY VERIFIED
                       </span>
                     )}
                   </div>
