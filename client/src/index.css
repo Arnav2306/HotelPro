@@ -1,0 +1,181 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --hp-primary: #0f172a;
+  --hp-secondary: #c5a880;
+  --hp-accent: #e2b97f;
+  --hp-accent-dark: #b88e57;
+  --hp-bg-light: #f8fafc;
+  --hp-card-bg: #ffffff;
+  --hp-text-muted: #64748b;
+  --hp-font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --hp-font-heading: 'Playfair Display', Georgia, serif;
+}
+
+body {
+  font-family: var(--hp-font-main);
+  background-color: var(--hp-bg-light);
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--hp-font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism & Header */
+.navbar-hotelpro {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-accent {
+  color: var(--hp-secondary);
+}
+
+.btn-hotelpro-gold {
+  background: linear-gradient(135deg, #dfbc82 0%, #b88e57 100%);
+  color: #0f172a;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-hotelpro-gold:hover {
+  background: linear-gradient(135deg, #e8c994 0%, #c5985e 100%);
+  color: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(197, 168, 128, 0.35);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(to right, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.55) 100%),
+    url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  padding: 100px 0 80px;
+}
+
+/* Search Box Floating Overlay */
+.search-card-wrapper {
+  margin-top: -50px;
+  position: relative;
+  z-index: 20;
+}
+
+.search-box-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Room Cards */
+.room-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: var(--hp-card-bg);
+}
+
+.room-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.09);
+}
+
+.room-card-img-wrapper {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.room-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.room-card:hover .room-card-img {
+  transform: scale(1.05);
+}
+
+.room-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(6px);
+  color: var(--hp-accent);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 185, 127, 0.3);
+}
+
+.room-price-tag {
+  color: var(--hp-primary);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+/* Amenities Card */
+.amenity-card {
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 2rem 1.5rem;
+  background: #ffffff;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.amenity-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--hp-secondary);
+  box-shadow: 0 12px 30px rgba(197, 168, 128, 0.12);
+}
+
+.amenity-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: #fdf8f0;
+  color: #b88e57;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+/* Footer */
+.footer-hotelpro {
+  background-color: #0b1120;
+  color: #94a3b8;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-link {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--hp-secondary);
+}
