@@ -145,7 +145,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
       <div
         className="modal fade show d-block"
         tabIndex="-1"
-        style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+        style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
         role="dialog"
         aria-modal="true"
       >
@@ -173,11 +173,12 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
             </div>
 
             {/* Tabs */}
-            <div className="bg-dark border-bottom border-secondary px-4 pt-0">
+            <div className="px-4 pt-0" style={{ backgroundColor: 'var(--hp-surface-elevated)', borderBottom: '1px solid var(--hp-border)' }}>
               <ul className="nav nav-tabs border-0" role="tablist">
                 <li className="nav-item">
                   <button
-                    className={`nav-link border-0 px-3 py-2 small fw-semibold ${tab === 'ops' ? 'active text-dark bg-light rounded-top' : 'text-white-50'}`}
+                    className={`nav-link border-0 px-3 py-2 small fw-semibold ${tab === 'ops' ? 'active rounded-top' : 'text-white-50'}`}
+                    style={tab === 'ops' ? { backgroundColor: 'var(--hp-surface)', color: 'var(--hp-accent)' } : {}}
                     onClick={() => setTab('ops')}
                     role="tab"
                   >
@@ -191,7 +192,8 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                 </li>
                 <li className="nav-item">
                   <button
-                    className={`nav-link border-0 px-3 py-2 small fw-semibold ${tab === 'refunds' ? 'active text-dark bg-light rounded-top' : 'text-white-50'}`}
+                    className={`nav-link border-0 px-3 py-2 small fw-semibold ${tab === 'refunds' ? 'active rounded-top' : 'text-white-50'}`}
+                    style={tab === 'refunds' ? { backgroundColor: 'var(--hp-surface)', color: 'var(--hp-accent)' } : {}}
                     onClick={() => setTab('refunds')}
                     role="tab"
                   >
@@ -206,14 +208,14 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
               </ul>
             </div>
 
-            <div className="modal-body p-4 bg-light">
+            <div className="modal-body p-4" style={{ backgroundColor: 'var(--hp-bg)' }}>
 
               {/* ══ OPERATIONS TAB ══ */}
               {tab === 'ops' && (
                 <>
                   {opsLoading && (
                     <div className="text-center py-5">
-                      <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                      <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                         <span className="visually-hidden">Loading…</span>
                       </div>
                     </div>
@@ -235,7 +237,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                           { label: 'Rooms Cleaning',       count: data.counts.cleaning  || 0, icon: 'bi-stars',              color: 'secondary'}
                         ].map(({ label, count, icon, color }) => (
                           <div key={label} className="col-12 col-sm-6 col-md-3">
-                            <div className="bg-white rounded-3 p-3 shadow-sm d-flex align-items-center gap-3">
+                            <div className="bg-white rounded-3 p-3 shadow-sm border d-flex align-items-center gap-3" style={{ borderColor: 'var(--hp-border)' }}>
                               <div className={`d-flex align-items-center justify-content-center rounded-3 bg-${color}-subtle text-${color}`}
                                 style={{ width: 44, height: 44, fontSize: '1.3rem' }}>
                                 <i className={`bi ${icon}`}></i>
@@ -257,7 +259,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                           </h6>
                           <div className="table-responsive">
                             <table className="table table-hover align-middle small mb-0">
-                              <thead className="table-light">
+                              <thead>
                                 <tr><th>Guest</th><th>Room</th><th>Check-In</th><th>Check-Out</th><th>Action</th></tr>
                               </thead>
                               <tbody>
@@ -280,7 +282,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                           </h6>
                           <div className="table-responsive">
                             <table className="table table-hover align-middle small mb-0">
-                              <thead className="table-light">
+                              <thead>
                                 <tr><th>Guest</th><th>Room</th><th>Check-In</th><th>Check-Out</th><th>Action</th></tr>
                               </thead>
                               <tbody>
@@ -303,7 +305,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                           </h6>
                           <div className="table-responsive">
                             <table className="table table-hover align-middle small mb-0">
-                              <thead className="table-light">
+                              <thead>
                                 <tr><th>Guest</th><th>Room</th><th>Check-In</th><th>Check-Out</th><th>Action</th></tr>
                               </thead>
                               <tbody>
@@ -326,7 +328,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                           </h6>
                           <div className="table-responsive">
                             <table className="table table-hover align-middle small mb-0">
-                              <thead className="table-light">
+                              <thead>
                                 <tr><th>Room Number</th><th>Suite Title</th><th>Category</th><th>Current State</th><th>Action</th></tr>
                               </thead>
                               <tbody>
@@ -373,7 +375,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                 <>
                   {refundsLoading && (
                     <div className="text-center py-5">
-                      <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                      <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                         <span className="visually-hidden">Loading…</span>
                       </div>
                     </div>
@@ -382,7 +384,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                     <div className="alert alert-danger small py-2 px-3">{refundsError}</div>
                   )}
                   {!refundsLoading && !refundsError && (
-                    <div className="bg-white rounded-3 p-4 shadow-sm">
+                    <div className="bg-white rounded-3 p-4 shadow-sm border" style={{ borderColor: 'var(--hp-border)' }}>
                       <div className="d-flex justify-content-between align-items-center mb-3">
                         <h6 className="font-serif fw-bold mb-0">
                           <i className="bi bi-arrow-counterclockwise brand-accent me-2"></i>
@@ -405,7 +407,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                       ) : (
                         <div className="table-responsive">
                           <table className="table table-hover align-middle small mb-0">
-                            <thead className="table-light">
+                            <thead>
                               <tr>
                                 <th>Guest</th>
                                 <th>Room</th>
@@ -430,7 +432,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                                     <div>{formatDate(b.checkIn)}</div>
                                     <div className="text-muted" style={{ fontSize: '0.68rem' }}>→ {formatDate(b.checkOut)}</div>
                                   </td>
-                                  <td className="fw-semibold">{formatINR(b.totalAmount)}</td>
+                                  <td className="fw-semibold" style={{ color: 'var(--hp-brand)' }}>{formatINR(b.totalAmount)}</td>
                                   <td>
                                     <span className={`badge ${PAY_BADGE[b.paymentStatus] || 'bg-secondary-subtle text-secondary'}`}>
                                       {b.paymentStatus?.replace('_', ' ')}
@@ -438,7 +440,7 @@ const StaffDashboard = ({ isOpen, onClose, userRole }) => {
                                   </td>
                                   <td>
                                     <button
-                                      className="btn btn-sm btn-outline-warning py-1 px-2 d-flex align-items-center gap-1"
+                                      className="btn btn-sm btn-outline-secondary py-1 px-2 d-flex align-items-center gap-1"
                                       style={{ fontSize: '0.72rem' }}
                                       onClick={() => openRefundModal(b)}
                                     >

@@ -199,7 +199,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
     <div
       className="modal fade show d-block"
       tabIndex="-1"
-      style={{ backgroundColor: 'rgba(15,23,42,0.82)', backdropFilter: 'blur(6px)', zIndex: 1060 }}
+      style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)', zIndex: 1060 }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="refundModalTitle"
@@ -208,10 +208,10 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
         <div className="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
 
           {/* Header */}
-          <div className="modal-header border-0 px-4 py-3" style={{ background: 'linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)' }}>
+          <div className="modal-header border-0 px-4 py-3 bg-dark text-white">
             <div>
               <h5 className="modal-title text-white fw-bold font-serif mb-0" id="refundModalTitle">
-                <i className="bi bi-arrow-counterclockwise me-2" style={{ color: '#f0a500' }}></i>
+                <i className="bi bi-arrow-counterclockwise me-2 brand-accent"></i>
                 Refund Management
               </h5>
               <p className="text-white-50 small mb-0 mt-1">
@@ -221,12 +221,12 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
             <button type="button" className="btn-close btn-close-white" onClick={handleClose} aria-label="Close" />
           </div>
 
-          <div className="modal-body p-0 bg-light">
+          <div className="modal-body p-0" style={{ backgroundColor: 'var(--hp-bg)' }}>
 
             {/* ── Loading ── */}
             {loading && (
               <div className="text-center py-5">
-                <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                   <span className="visually-hidden">Loading payment info…</span>
                 </div>
                 <p className="text-muted small mt-3">Loading payment information…</p>
@@ -250,7 +250,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
               <div className="p-4 d-flex flex-column gap-3">
 
                 {/* Booking + Payment Summary */}
-                <div className="bg-white rounded-3 p-3 shadow-sm">
+                <div className="rounded-3 p-3 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                   <div className="d-flex justify-content-between align-items-start mb-2">
                     <div>
                       <div className="fw-semibold small">{booking.user?.name || '—'}</div>
@@ -327,7 +327,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
                     )}
 
                     {isRefundable && (
-                      <form onSubmit={handleFormNext} className="bg-white rounded-3 p-3 shadow-sm">
+                      <form onSubmit={handleFormNext} className="rounded-3 p-3 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                         <h6 className="fw-semibold font-serif mb-3 small text-uppercase text-secondary">
                           <i className="bi bi-arrow-counterclockwise me-1"></i>Initiate Refund
                         </h6>
@@ -339,7 +339,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
                             <span className="text-muted fw-normal ms-1">(leave blank for full balance)</span>
                           </label>
                           <div className="input-group">
-                            <span className="input-group-text fw-bold">₹</span>
+                            <span className="input-group-text fw-bold" style={{ backgroundColor: 'var(--hp-surface-elevated)', borderColor: 'var(--hp-border)', color: 'var(--hp-text)' }}>₹</span>
                             <input
                               id="refundAmount"
                               type="number"
@@ -394,7 +394,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
 
                         <button
                           type="submit"
-                          className="btn btn-warning w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
+                          className="btn btn-hotelpro-accent w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
                         >
                           <i className="bi bi-eye me-1"></i>
                           Review Refund of&nbsp;
@@ -409,7 +409,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
 
                 {/* ── STEP: confirm ── */}
                 {step === 'confirm' && (
-                  <div className="bg-white rounded-3 p-4 shadow-sm text-center">
+                  <div className="rounded-3 p-4 shadow-sm border text-center" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <div
                       className="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning-subtle text-warning mb-3"
                       style={{ width: 60, height: 60, fontSize: '1.8rem' }}
@@ -464,7 +464,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
 
                 {/* ── STEP: done ── */}
                 {step === 'done' && submitResult && (
-                  <div className="bg-white rounded-3 p-4 shadow-sm text-center">
+                  <div className="rounded-3 p-4 shadow-sm border text-center" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <div
                       className="d-inline-flex align-items-center justify-content-center rounded-circle bg-success-subtle text-success mb-3"
                       style={{ width: 60, height: 60, fontSize: '1.8rem' }}
@@ -503,7 +503,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
                       {submitResult.payment?.status !== 'refunded' && (
                         <button
                           type="button"
-                          className="btn btn-outline-warning flex-fill btn-sm"
+                          className="btn btn-outline-secondary flex-fill btn-sm"
                           onClick={handleAnotherRefund}
                         >
                           <i className="bi bi-plus-circle me-1"></i>Another Refund
@@ -511,7 +511,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
                       )}
                       <button
                         type="button"
-                        className="btn btn-dark flex-fill btn-sm"
+                        className="btn btn-hotelpro-primary flex-fill btn-sm"
                         onClick={handleClose}
                       >
                         Done
@@ -567,7 +567,7 @@ const RefundModal = ({ booking, isOpen, onClose, userRole }) => {
 
                 {/* ── Reconciliation (admin only) ── */}
                 {isAdmin && payment?.provider === 'razorpay' && payment?.paymentId && (
-                  <div className="bg-white rounded-3 p-3 shadow-sm">
+                  <div className="rounded-3 p-3 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <h6 className="fw-semibold small text-uppercase text-secondary mb-0">
                         <i className="bi bi-arrow-left-right me-1"></i>Gateway Reconciliation

@@ -72,7 +72,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
     <div
       className="modal fade show d-block"
       tabIndex="-1"
-      style={{ backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(5px)' }}
+      style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
       role="dialog"
       aria-modal="true"
     >
@@ -98,12 +98,13 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="px-4 pt-3 pb-1 border-bottom bg-light">
+          <div className="px-4 pt-3 pb-1 border-bottom" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
             <ul className="nav nav-pills nav-fill">
               <li className="nav-item">
                 <button
                   type="button"
-                  className={`nav-link py-2 fw-semibold ${activeTab === 'login' ? 'active bg-dark text-white' : 'text-secondary'}`}
+                  className="nav-link py-2 fw-semibold"
+                  style={activeTab === 'login' ? { backgroundColor: 'var(--hp-accent)', color: '#101719' } : { color: 'var(--hp-text-secondary)' }}
                   onClick={() => switchTab('login')}
                 >
                   <i className="bi bi-box-arrow-in-right me-1"></i> Sign In
@@ -112,7 +113,8 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
               <li className="nav-item">
                 <button
                   type="button"
-                  className={`nav-link py-2 fw-semibold ${activeTab === 'register' ? 'active bg-dark text-white' : 'text-secondary'}`}
+                  className="nav-link py-2 fw-semibold"
+                  style={activeTab === 'register' ? { backgroundColor: 'var(--hp-accent)', color: '#101719' } : { color: 'var(--hp-text-secondary)' }}
                   onClick={() => switchTab('register')}
                 >
                   <i className="bi bi-person-plus me-1"></i> Register
@@ -135,7 +137,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
                 <div className="mb-3">
                   <label className="form-label small fw-semibold text-secondary">Full Name</label>
                   <div className="input-group">
-                    <span className="input-group-text bg-white"><i className="bi bi-person"></i></span>
+                    <span className="input-group-text" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)', color: 'var(--hp-accent)' }}><i className="bi bi-person"></i></span>
                     <input
                       type="text"
                       name="name"
@@ -152,7 +154,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
               <div className="mb-3">
                 <label className="form-label small fw-semibold text-secondary">Email Address</label>
                 <div className="input-group">
-                  <span className="input-group-text bg-white"><i className="bi bi-envelope"></i></span>
+                  <span className="input-group-text" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)', color: 'var(--hp-accent)' }}><i className="bi bi-envelope"></i></span>
                   <input
                     type="email"
                     name="email"
@@ -168,7 +170,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
               <div className="mb-3">
                 <label className="form-label small fw-semibold text-secondary">Password</label>
                 <div className="input-group">
-                  <span className="input-group-text bg-white"><i className="bi bi-lock"></i></span>
+                  <span className="input-group-text" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)', color: 'var(--hp-accent)' }}><i className="bi bi-lock"></i></span>
                   <input
                     type="password"
                     name="password"
@@ -190,7 +192,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
                 <div className="mb-3">
                   <label className="form-label small fw-semibold text-secondary">Confirm Password</label>
                   <div className="input-group">
-                    <span className="input-group-text bg-white"><i className="bi bi-shield-check"></i></span>
+                    <span className="input-group-text" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)', color: 'var(--hp-accent)' }}><i className="bi bi-shield-check"></i></span>
                     <input
                       type="password"
                       name="confirmPassword"
@@ -207,7 +209,7 @@ const AuthModal = ({ isOpen, onClose, initialTab = 'login' }) => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="btn btn-hotelpro-gold w-100 py-2 mt-2 fw-semibold d-flex align-items-center justify-content-center gap-2"
+                className="btn btn-hotelpro-primary w-100 py-2 mt-2 fw-semibold d-flex align-items-center justify-content-center gap-2"
               >
                 {submitting && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                 <span>{activeTab === 'login' ? 'Sign In' : 'Create Account'}</span>

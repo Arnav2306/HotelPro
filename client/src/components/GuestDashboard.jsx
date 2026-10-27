@@ -93,7 +93,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
             email: user?.email || ''
           },
           theme: {
-            color: '#c5a880'
+            color: '#20C7B5'
           },
           modal: {
             ondismiss: () => {
@@ -131,7 +131,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
       <div
         className="modal fade show d-block"
         tabIndex="-1"
-        style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+        style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
         role="dialog"
         aria-modal="true"
       >
@@ -147,10 +147,10 @@ const GuestDashboard = ({ isOpen, onClose }) => {
               <button type="button" className="btn-close btn-close-white" onClick={onClose} aria-label="Close"></button>
             </div>
 
-            <div className="modal-body p-4 bg-light">
+            <div className="modal-body p-4" style={{ backgroundColor: 'var(--hp-bg)' }}>
               {loading && (
                 <div className="text-center py-5">
-                  <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                  <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>
@@ -179,16 +179,16 @@ const GuestDashboard = ({ isOpen, onClose }) => {
                 <div className="row g-4">
                   {/* Upcoming Stays */}
                   <div className="col-12">
-                    <div className="bg-white rounded-3 p-4 shadow-sm">
+                    <div className="rounded-3 p-4 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                       <h6 className="font-serif fw-bold mb-3">
                         <i className="bi bi-calendar-event brand-accent me-2"></i>Upcoming Stays
                       </h6>
                       {data.upcoming.length === 0 ? (
-                        <p className="text-muted small mb-0">No upcoming stays. <button className="btn btn-link btn-sm p-0" onClick={onClose}>Browse rooms</button></p>
+                        <p className="text-muted small mb-0">No upcoming stays. <button className="btn btn-link btn-sm p-0 brand-accent" onClick={onClose}>Browse rooms</button></p>
                       ) : (
                         <div className="d-flex flex-column gap-3">
                           {data.upcoming.map((b) => (
-                            <div key={b._id} className="border rounded-3 p-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <div key={b._id} className="border rounded-3 p-3 d-flex justify-content-between align-items-center flex-wrap gap-2" style={{ backgroundColor: 'var(--hp-surface-elevated)', borderColor: 'var(--hp-border)' }}>
                               <div>
                                 <div className="fw-semibold">{b.room?.title}</div>
                                 <div className="text-muted small">
@@ -212,7 +212,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
 
                   {/* Booking History */}
                   <div className="col-12">
-                    <div className="bg-white rounded-3 p-4 shadow-sm">
+                    <div className="rounded-3 p-4 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                       <h6 className="font-serif fw-bold mb-3">
                         <i className="bi bi-clock-history brand-accent me-2"></i>Booking History
                       </h6>
@@ -221,7 +221,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
                       ) : (
                         <div className="table-responsive">
                           <table className="table table-hover align-middle small mb-0">
-                            <thead className="table-light">
+                            <thead>
                               <tr>
                                 <th>Room</th>
                                 <th>Dates</th>
@@ -242,7 +242,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
                                     <div>{formatDate(b.checkIn)}</div>
                                     <div className="text-muted">to {formatDate(b.checkOut)}</div>
                                   </td>
-                                  <td className="fw-semibold">{formatINR(b.totalAmount)}</td>
+                                  <td className="fw-semibold" style={{ color: 'var(--hp-brand)' }}>{formatINR(b.totalAmount)}</td>
                                   <td>
                                     <span className={`badge ${STATUS_BADGE[b.bookingStatus] || 'bg-secondary-subtle text-secondary'}`}>
                                       {b.bookingStatus}
@@ -257,7 +257,7 @@ const GuestDashboard = ({ isOpen, onClose }) => {
                                     <div className="d-flex gap-1 flex-wrap">
                                       {!['paid', 'partially_refunded', 'refunded'].includes(b.paymentStatus) && b.bookingStatus === 'confirmed' && (
                                         <button
-                                          className="btn btn-hotelpro-gold btn-sm px-2 py-1"
+                                          className="btn btn-hotelpro-accent btn-sm px-2 py-1"
                                           style={{ fontSize: '0.75rem' }}
                                           onClick={() => handlePay(b)}
                                           disabled={payingId === b._id}

@@ -72,16 +72,17 @@ const Footer = () => {
               </li>
             </ul>
 
-            <div className="p-3 rounded-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="p-3 rounded-3" style={{ background: 'var(--hp-surface)', border: '1px solid var(--hp-border)' }}>
               <span className="small text-white d-block mb-1 fw-semibold">Subscribe for Private Offers</span>
               <div className="input-group input-group-sm">
                 <input
                   type="email"
-                  className="form-control bg-dark border-secondary text-white"
+                  className="form-control text-white border-0"
+                  style={{ backgroundColor: 'var(--hp-surface-elevated)' }}
                   placeholder="Your email address"
                   aria-label="Your email address"
                 />
-                <button className="btn btn-hotelpro-gold px-3" type="button">
+                <button className="btn btn-hotelpro-accent px-3" type="button">
                   Join
                 </button>
               </div>

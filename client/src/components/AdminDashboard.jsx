@@ -14,7 +14,7 @@ const PAY_BADGE = {
 
 const StatCard = ({ icon, label, value, color, sub }) => (
   <div className="col-12 col-sm-6 col-md-4 col-lg-2">
-    <div className="bg-white rounded-3 p-3 shadow-sm h-100 d-flex flex-column">
+    <div className="rounded-3 p-3 shadow-sm border h-100 d-flex flex-column" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
       <div className={`d-inline-flex align-items-center justify-content-center rounded-3 bg-${color}-subtle text-${color} mb-2`}
         style={{ width: 40, height: 40, fontSize: '1.2rem' }}>
         <i className={`bi ${icon}`}></i>
@@ -65,7 +65,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
       <div
         className="modal fade show d-block"
         tabIndex="-1"
-        style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+        style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
         role="dialog"
         aria-modal="true"
       >
@@ -88,10 +88,10 @@ const AdminDashboard = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="modal-body p-4 bg-light">
+            <div className="modal-body p-4" style={{ backgroundColor: 'var(--hp-bg)' }}>
               {loading && (
                 <div className="text-center py-5">
-                  <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                  <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                     <span className="visually-hidden">Loading…</span>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                       icon="bi-currency-rupee"
                       label="Total Revenue"
                       value={formatINR(data.totalRevenue || 0)}
-                      color="warning"
+                      color="success"
                       sub="Paid bookings only"
                     />
                     <StatCard
@@ -126,15 +126,20 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* Occupancy Bar */}
-                  <div className="bg-white rounded-3 p-4 shadow-sm">
+                  <div className="rounded-3 p-4 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <div className="d-flex justify-content-between mb-2">
                       <h6 className="font-serif fw-bold mb-0">Room Occupancy</h6>
                       <span className="small text-muted">{data.occupiedRooms} / {data.totalRooms} rooms occupied</span>
                     </div>
-                    <div className="progress" style={{ height: '12px', borderRadius: '8px' }}>
+                    <div className="progress" style={{ height: '12px', borderRadius: '8px', backgroundColor: 'var(--hp-surface-elevated)' }}>
                       <div
-                        className="progress-bar bg-warning"
-                        style={{ width: `${data.occupancyPercent}%`, borderRadius: '8px', transition: 'width 0.5s ease' }}
+                        className="progress-bar"
+                        style={{
+                          width: `${data.occupancyPercent}%`,
+                          backgroundColor: 'var(--hp-accent)',
+                          borderRadius: '8px',
+                          transition: 'width 0.5s ease'
+                        }}
                         role="progressbar"
                         aria-valuenow={data.occupancyPercent}
                         aria-valuemin="0"
@@ -144,7 +149,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* Recent Bookings with Refund action */}
-                  <div className="bg-white rounded-3 p-4 shadow-sm">
+                  <div className="rounded-3 p-4 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <h6 className="font-serif fw-bold mb-3">
                       <i className="bi bi-clock-history brand-accent me-2"></i>Recent Bookings
                     </h6>
@@ -153,7 +158,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                     ) : (
                       <div className="table-responsive">
                         <table className="table table-hover align-middle small mb-0">
-                          <thead className="table-light">
+                          <thead>
                             <tr>
                               <th>Guest</th>
                               <th>Room</th>
@@ -180,7 +185,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                                   </td>
                                   <td>{formatDate(b.checkIn)}</td>
                                   <td>{formatDate(b.checkOut)}</td>
-                                  <td className="fw-semibold">{formatINR(b.totalAmount)}</td>
+                                  <td className="fw-semibold" style={{ color: 'var(--hp-brand)' }}>{formatINR(b.totalAmount)}</td>
                                   <td>
                                     <span className={`badge ${STATUS_BADGE[b.bookingStatus] || 'bg-secondary-subtle text-secondary'}`}>
                                       {b.bookingStatus}
@@ -194,7 +199,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                                   <td>
                                     {isRefundable ? (
                                       <button
-                                        className="btn btn-sm btn-outline-warning py-1 px-2 d-flex align-items-center gap-1"
+                                        className="btn btn-sm btn-outline-secondary py-1 px-2 d-flex align-items-center gap-1"
                                         style={{ fontSize: '0.70rem' }}
                                         onClick={() => openRefundModal(b)}
                                         title="Open refund panel"

@@ -24,20 +24,26 @@ const RoomList = ({
     <section id="rooms" className="py-5 my-4">
       <div className="container">
         <div className="text-center mb-5">
-          <span className="badge bg-warning-subtle text-warning-emphasis px-3 py-2 rounded-pill fw-semibold text-uppercase mb-2">
+          <span
+            className="badge px-3 py-2 rounded-pill fw-semibold text-uppercase mb-2"
+            style={{ backgroundColor: 'var(--hp-accent-subtle)', color: 'var(--hp-accent)', border: '1px solid rgba(32, 199, 181, 0.25)', letterSpacing: '0.06em' }}
+          >
             Accommodations
           </span>
-          <h2 className="display-5 fw-bold text-dark font-serif mt-2">
-            Signature Suites & Sanctuary Rooms
+          <h2 className="display-5 fw-bold font-serif mt-2" style={{ color: 'var(--hp-text)' }}>
+            Signature Suites &amp; Private Sanctuaries
           </h2>
-          <p className="text-muted mx-auto" style={{ maxWidth: '640px' }}>
-            Every room is meticulously designed with contemporary luxury, natural materials, and tailor-made amenities for supreme relaxation.
+          <p className="mx-auto fs-6" style={{ maxWidth: '640px', color: 'var(--hp-text-secondary)' }}>
+            Every suite is meticulously designed with contemporary elegance, tactile natural materials, and tailor-made amenities for supreme relaxation.
           </p>
 
           {isUsingMockData && (
-            <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-light border text-secondary small mt-2">
-              <i className="bi bi-info-circle text-warning"></i>
-              <span>Displaying preview accommodations from inventory cache</span>
+            <div
+              className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill border small mt-2 shadow-xs"
+              style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)', color: 'var(--hp-text-secondary)' }}
+            >
+              <i className="bi bi-info-circle text-success"></i>
+              <span>Displaying curated accommodations from boutique collection</span>
             </div>
           )}
 
@@ -49,19 +55,23 @@ const RoomList = ({
 
           {/* Filter Pills */}
           <div className="d-flex flex-wrap justify-content-center gap-2 mt-4">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => onCategorySelect && onCategorySelect(cat)}
-                className={`btn btn-sm px-3 py-2 rounded-pill transition-all ${
-                  activeCategoryFilter.toLowerCase() === cat.toLowerCase()
-                    ? 'btn-dark fw-semibold shadow-sm'
-                    : 'btn-outline-secondary'
-                }`}
-              >
-                {cat === 'all' ? 'All Accommodations' : cat}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = activeCategoryFilter.toLowerCase() === cat.toLowerCase();
+              return (
+                <button
+                  key={cat}
+                  onClick={() => onCategorySelect && onCategorySelect(cat)}
+                  className={`btn btn-sm px-3 py-2 rounded-pill transition-all ${
+                    isActive
+                      ? 'btn-hotelpro-primary shadow-sm'
+                      : 'border'
+                  }`}
+                  style={!isActive ? { backgroundColor: 'var(--hp-surface-elevated)', borderColor: 'var(--hp-border)', color: 'var(--hp-text-secondary)' } : {}}
+                >
+                  {cat === 'all' ? 'All Accommodations' : cat}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -109,7 +119,7 @@ const RoomList = ({
                 </p>
                 <button
                   onClick={() => onCategorySelect && onCategorySelect('all')}
-                  className="btn btn-outline-dark mt-2 btn-sm px-4 py-2 rounded-pill"
+                  className="btn btn-hotelpro-outline mt-2 btn-sm px-4 py-2 rounded-pill"
                 >
                   View All Accommodations
                 </button>

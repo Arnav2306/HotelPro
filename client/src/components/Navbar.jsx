@@ -16,8 +16,8 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
   const getRoleBadgeClass = (role) => {
     switch (role) {
       case 'admin': return 'bg-danger-subtle text-danger border border-danger-subtle';
-      case 'staff': return 'bg-info-subtle text-info border border-info-subtle';
-      default: return 'bg-warning-subtle text-warning-emphasis border border-warning-subtle';
+      case 'staff': return 'bg-success-subtle text-success border border-success-subtle';
+      default: return 'bg-light text-dark border border-secondary-subtle';
     }
   };
 
@@ -108,7 +108,10 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
 
             {user ? (
               <div className="d-flex align-items-center gap-2 flex-wrap">
-                <div className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-dark border border-secondary border-opacity-50 text-white">
+                <div
+                  className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill text-white border"
+                  style={{ backgroundColor: 'var(--hp-surface-elevated)', borderColor: 'var(--hp-border)' }}
+                >
                   <i className="bi bi-person-circle fs-5 brand-accent"></i>
                   <div className="d-flex flex-column text-start">
                     <span className="fw-semibold small text-white lh-1 text-truncate" style={{ maxWidth: '120px' }}>
@@ -136,7 +139,7 @@ const Navbar = ({ serverHealth, onOpenAuth, onOpenMyBookings, onOpenDashboard })
               </button>
             )}
 
-            <a href="#search" onClick={closeNav} className="btn btn-hotelpro-gold btn-sm px-3 py-2">
+            <a href="#search" onClick={closeNav} className="btn btn-hotelpro-accent btn-sm px-3 py-2">
               <i className="bi bi-calendar2-check me-1"></i>Book Now
             </a>
           </div>

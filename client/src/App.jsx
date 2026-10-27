@@ -183,7 +183,7 @@ function MainApp() {
         <div
           className="modal fade show d-block"
           tabIndex="-1"
-          style={{ backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(4px)' }}
+          style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
           role="dialog"
           aria-modal="true"
         >
@@ -207,25 +207,28 @@ function MainApp() {
                 />
                 <div className="p-4">
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <span className="badge bg-secondary-subtle text-secondary-emphasis fs-6 px-3 py-1">
+                    <span
+                      className="badge fs-6 px-3 py-1 rounded-pill fw-medium"
+                      style={{ backgroundColor: 'var(--hp-surface-elevated)', color: 'var(--hp-accent)', border: '1px solid var(--hp-border)' }}
+                    >
                       {selectedRoom.category}
                     </span>
                     <div className="text-end">
-                      <span className="fs-3 fw-bold text-dark">{formatINR(selectedRoom.price)}</span>
+                      <span className="fs-3 fw-bold" style={{ color: 'var(--hp-brand)' }}>{formatINR(selectedRoom.price)}</span>
                       <span className="text-muted small"> / night</span>
                     </div>
                   </div>
 
-                  <p className="text-muted mb-4">
+                  <p className="text-muted mb-4 fs-6">
                     {selectedRoom.description ||
                       `Experience unmatched luxury and privacy in our ${selectedRoom.title}. Tailored specifically for guests demanding elegance, comfort, and state-of-the-art hospitality conveniences.`}
                   </p>
 
                   <div className="row g-3 mb-4">
                     <div className="col-12 col-sm-4">
-                      <div className="p-2 border rounded text-center">
-                        <small className="text-muted d-block">Capacity</small>
-                        <strong className="small">
+                      <div className="p-3 rounded-3 text-center" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
+                        <small className="text-muted d-block text-uppercase" style={{ fontSize: '0.72rem' }}>Capacity</small>
+                        <strong className="small" style={{ color: 'var(--hp-text)' }}>
                           {typeof selectedRoom.capacity === 'number'
                             ? `${selectedRoom.capacity} Guests`
                             : selectedRoom.capacity || '2 Guests'}
@@ -233,24 +236,28 @@ function MainApp() {
                       </div>
                     </div>
                     <div className="col-12 col-sm-4">
-                      <div className="p-2 border rounded text-center">
-                        <small className="text-muted d-block">Bed Type</small>
-                        <strong className="small">{selectedRoom.bed || '1 King Bed'}</strong>
+                      <div className="p-3 rounded-3 text-center" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
+                        <small className="text-muted d-block text-uppercase" style={{ fontSize: '0.72rem' }}>Bed Type</small>
+                        <strong className="small" style={{ color: 'var(--hp-text)' }}>{selectedRoom.bed || '1 King Bed'}</strong>
                       </div>
                     </div>
                     <div className="col-12 col-sm-4">
-                      <div className="p-2 border rounded text-center">
-                        <small className="text-muted d-block">Dimensions</small>
-                        <strong className="small">{selectedRoom.size || '60 m²'}</strong>
+                      <div className="p-3 rounded-3 text-center" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
+                        <small className="text-muted d-block text-uppercase" style={{ fontSize: '0.72rem' }}>Dimensions</small>
+                        <strong className="small" style={{ color: 'var(--hp-text)' }}>{selectedRoom.size || '60 m²'}</strong>
                       </div>
                     </div>
                   </div>
 
-                  <h6 className="fw-bold mb-2">Included Amenities:</h6>
+                  <h6 className="fw-bold mb-2 font-serif">Included Amenities:</h6>
                   <div className="d-flex flex-wrap gap-2 mb-4">
                     {Array.isArray(selectedRoom.amenities) &&
                       selectedRoom.amenities.map((item, idx) => (
-                        <span key={idx} className="badge bg-light text-dark border px-3 py-2">
+                        <span
+                          key={idx}
+                          className="badge px-3 py-2 rounded-pill fw-normal"
+                          style={{ backgroundColor: 'var(--hp-surface-elevated)', color: 'var(--hp-text)', border: '1px solid var(--hp-border)' }}
+                        >
                           <i className="bi bi-check2 text-success me-1"></i>
                           {item}
                         </span>
@@ -268,7 +275,7 @@ function MainApp() {
                     {user ? (
                       <button
                         type="button"
-                        className="btn btn-hotelpro-gold px-4"
+                        className="btn btn-hotelpro-accent px-4"
                         onClick={() => openBookingModal(selectedRoom)}
                       >
                         <i className="bi bi-calendar2-check me-2"></i>Book This Suite
@@ -276,7 +283,7 @@ function MainApp() {
                     ) : (
                       <button
                         type="button"
-                        className="btn btn-hotelpro-gold px-4"
+                        className="btn btn-hotelpro-accent px-4"
                         onClick={() => {
                           setSelectedRoom(null);
                           openAuthModal('login');

@@ -43,7 +43,7 @@ const MyBookings = ({ isOpen, onClose }) => {
     <div
       className="modal fade show d-block"
       tabIndex="-1"
-      style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+      style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
       role="dialog"
       aria-modal="true"
     >
@@ -62,10 +62,10 @@ const MyBookings = ({ isOpen, onClose }) => {
             ></button>
           </div>
 
-          <div className="modal-body p-4">
+          <div className="modal-body p-4" style={{ backgroundColor: 'var(--hp-bg)' }}>
             {loading && (
               <div className="text-center py-5">
-                <div className="spinner-border text-warning" role="status" style={{ width: '2.5rem', height: '2.5rem' }}>
+                <div className="spinner-border" role="status" style={{ width: '2.5rem', height: '2.5rem', color: 'var(--hp-brand)' }}>
                   <span className="visually-hidden">Loading...</span>
                 </div>
                 <p className="text-muted small mt-3">Loading your reservations...</p>
@@ -83,8 +83,8 @@ const MyBookings = ({ isOpen, onClose }) => {
                 <i className="bi bi-calendar-x fs-1 text-muted d-block mb-3"></i>
                 <h6 className="fw-bold text-secondary">No reservations yet</h6>
                 <p className="text-muted small">Browse our suites and book your first luxury stay.</p>
-                <button className="btn btn-hotelpro-gold btn-sm px-4 mt-1" onClick={onClose}>
-                  Explore Rooms
+                <button className="btn btn-hotelpro-accent btn-sm px-4 mt-1" onClick={onClose}>
+                  Explore Accommodations
                 </button>
               </div>
             )}
@@ -98,7 +98,7 @@ const MyBookings = ({ isOpen, onClose }) => {
                 )}
 
                 {bookings.map((booking) => (
-                  <div key={booking._id} className="border rounded-4 overflow-hidden">
+                  <div key={booking._id} className="border rounded-4 overflow-hidden shadow-xs" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
                     <div className="row g-0">
                       {booking.room?.image && (
                         <div className="col-12 col-sm-4 col-md-3">
@@ -124,18 +124,18 @@ const MyBookings = ({ isOpen, onClose }) => {
 
                           <div className="row g-2 mb-2 text-sm">
                             <div className="col-auto small text-muted">
-                              <i className="bi bi-calendar-event me-1"></i>
+                              <i className="bi bi-calendar-event me-1 brand-accent"></i>
                               {formatDate(booking.checkIn)} → {formatDate(booking.checkOut)}
                             </div>
                           </div>
 
                           <div className="d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <div className="small text-muted">
-                              <i className="bi bi-people me-1"></i>{booking.guests} guest{booking.guests !== 1 ? 's' : ''}
+                              <i className="bi bi-people me-1 brand-accent"></i>{booking.guests} guest{booking.guests !== 1 ? 's' : ''}
                               &nbsp;&bull;&nbsp;
-                              <i className="bi bi-moon-stars me-1"></i>{booking.nights} night{booking.nights !== 1 ? 's' : ''}
+                              <i className="bi bi-moon-stars me-1 brand-accent"></i>{booking.nights} night{booking.nights !== 1 ? 's' : ''}
                               &nbsp;&bull;&nbsp;
-                              <strong className="text-dark">{formatINR(booking.totalAmount)}</strong>
+                              <strong style={{ color: 'var(--hp-brand)' }}>{formatINR(booking.totalAmount)}</strong>
                             </div>
 
                             {booking.bookingStatus === 'confirmed' && (

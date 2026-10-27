@@ -28,19 +28,19 @@ const SearchForm = ({ onSearch }) => {
       <div className="search-box-card p-4 p-md-5">
         <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
           <div>
-            <h4 className="mb-1 fw-bold text-dark font-serif">Check Availability & Best Rates</h4>
-            <p className="text-muted small mb-0">Direct booking with guaranteed lowest rate & complimentary breakfast</p>
+            <h4 className="mb-1 fw-bold font-serif" style={{ color: 'var(--hp-text)' }}>Check Availability &amp; Reserve</h4>
+            <p className="small mb-0" style={{ color: 'var(--hp-text-secondary)' }}>Direct booking with guaranteed best rates &amp; complimentary gourmet breakfast</p>
           </div>
-          <span className="badge bg-light text-dark border px-3 py-2 rounded-pill">
-            <i className="bi bi-shield-check text-success me-1"></i> Best Price Guarantee
+          <span className="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+            <i className="bi bi-shield-check me-1"></i> Best Rate Guarantee
           </span>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="row g-3 align-items-end">
             <div className="col-12 col-md-6 col-lg-3">
-              <label htmlFor="checkIn" className="form-label small fw-semibold text-secondary">
-                <i className="bi bi-calendar-event me-1"></i> CHECK-IN
+              <label htmlFor="checkIn" className="form-label small fw-semibold" style={{ color: 'var(--hp-text-secondary)' }}>
+                <i className="bi bi-calendar-event me-1 brand-accent"></i> CHECK-IN
               </label>
               <input
                 type="date"
@@ -54,8 +54,8 @@ const SearchForm = ({ onSearch }) => {
             </div>
 
             <div className="col-12 col-md-6 col-lg-3">
-              <label htmlFor="checkOut" className="form-label small fw-semibold text-secondary">
-                <i className="bi bi-calendar-check me-1"></i> CHECK-OUT
+              <label htmlFor="checkOut" className="form-label small fw-semibold" style={{ color: 'var(--hp-text-secondary)' }}>
+                <i className="bi bi-calendar-check me-1 brand-accent"></i> CHECK-OUT
               </label>
               <input
                 type="date"
@@ -68,9 +68,9 @@ const SearchForm = ({ onSearch }) => {
               />
             </div>
 
-            <div className="col-12 col-md-6 col-lg-2">
-              <label htmlFor="guests" className="form-label small fw-semibold text-secondary">
-                <i className="bi bi-people me-1"></i> GUESTS
+            <div className="col-12 col-md-4 col-lg-2">
+              <label htmlFor="guests" className="form-label small fw-semibold" style={{ color: 'var(--hp-text-secondary)' }}>
+                <i className="bi bi-people me-1 brand-accent"></i> GUESTS
               </label>
               <select
                 id="guests"
@@ -86,9 +86,9 @@ const SearchForm = ({ onSearch }) => {
               </select>
             </div>
 
-            <div className="col-12 col-md-6 col-lg-2">
-              <label htmlFor="roomType" className="form-label small fw-semibold text-secondary">
-                <i className="bi bi-door-open me-1"></i> ROOM TYPE
+            <div className="col-12 col-md-4 col-lg-2">
+              <label htmlFor="roomType" className="form-label small fw-semibold" style={{ color: 'var(--hp-text-secondary)' }}>
+                <i className="bi bi-door-open me-1 brand-accent"></i> SUITE TYPE
               </label>
               <select
                 id="roomType"
@@ -97,7 +97,7 @@ const SearchForm = ({ onSearch }) => {
                 onChange={handleChange}
                 className="form-select form-select-lg fs-6"
               >
-                <option value="all">All Types</option>
+                <option value="all">All Accommodations</option>
                 <option value="Luxury Suite">Luxury Suite</option>
                 <option value="Villa">Villa</option>
                 <option value="Executive">Executive</option>
@@ -105,8 +105,8 @@ const SearchForm = ({ onSearch }) => {
               </select>
             </div>
 
-            <div className="col-12 col-lg-2">
-              <button type="submit" className="btn btn-hotelpro-gold w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+            <div className="col-12 col-md-4 col-lg-2">
+              <button type="submit" className="btn btn-hotelpro-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2">
                 <i className="bi bi-search"></i>
                 <span>Search</span>
               </button>
@@ -115,7 +115,7 @@ const SearchForm = ({ onSearch }) => {
         </form>
 
         {notification && (
-          <div className="alert alert-info mt-3 py-2 small d-flex align-items-center gap-2 mb-0" role="alert">
+          <div className="alert alert-success mt-3 py-2 px-3 small d-flex align-items-center gap-2 mb-0 rounded-3 border-0 bg-success-subtle text-success" role="alert">
             <i className="bi bi-info-circle-fill"></i>
             <span>{notification}</span>
           </div>

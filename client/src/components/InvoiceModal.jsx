@@ -16,24 +16,24 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
       <!DOCTYPE html><html><head>
         <title>HotelPro Invoice #${booking._id?.slice(-8).toUpperCase()}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
         <style>
           * { margin:0; padding:0; box-sizing:border-box; }
-          body { font-family:'Plus Jakarta Sans',sans-serif; color:#1e293b; padding:40px; font-size:14px; }
-          .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:32px; padding-bottom:20px; border-bottom:2px solid #e2e8f0; }
-          .brand { font-size:24px; font-weight:700; color:#0f172a; }
-          .brand span { color:#c5a880; }
-          .meta { text-align:right; color:#64748b; font-size:13px; }
+          body { font-family:'Inter',sans-serif; color:#101719; padding:40px; font-size:14px; background:#FFFFFF; }
+          .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:32px; padding-bottom:20px; border-bottom:2px solid #E2E8F0; }
+          .brand { font-size:24px; font-weight:700; color:#101719; }
+          .brand span { color:#20C7B5; }
+          .meta { text-align:right; color:#727873; font-size:13px; }
           .section { margin-bottom:24px; }
-          h4 { font-family:'Playfair Display',serif; color:#0f172a; margin-bottom:12px; font-size:16px; }
+          h4 { font-family:'Playfair Display',serif; color:#101719; margin-bottom:12px; font-size:16px; }
           table { width:100%; border-collapse:collapse; }
-          th { background:#f8fafc; text-align:left; padding:10px 12px; font-size:12px; text-transform:uppercase; color:#64748b; border-bottom:1px solid #e2e8f0; }
-          td { padding:10px 12px; border-bottom:1px solid #f1f5f9; }
-          .total-row td { font-weight:700; font-size:16px; background:#fdf8f0; }
+          th { background:#F4F7F7; text-align:left; padding:10px 12px; font-size:12px; text-transform:uppercase; color:#727873; border-bottom:1px solid #E2E8F0; }
+          td { padding:10px 12px; border-bottom:1px solid #EFECE5; }
+          .total-row td { font-weight:700; font-size:16px; background:#F0FDF4; color:#101719; }
           .badge { display:inline-block; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:600; }
-          .paid { background:#dcfce7; color:#16a34a; }
-          .pending { background:#fef9c3; color:#a16207; }
-          .footer { margin-top:40px; padding-top:20px; border-top:1px solid #e2e8f0; text-align:center; color:#94a3b8; font-size:12px; }
+          .paid { background:#EDF7F2; color:#287A55; }
+          .pending { background:#FBF4E8; color:#B7791F; }
+          .footer { margin-top:40px; padding-top:20px; border-top:1px solid #E2E8F0; text-align:center; color:#727873; font-size:12px; }
           @media print { body { padding:20px; } }
         </style>
       </head><body>${content}</body></html>
@@ -52,7 +52,7 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
     <div
       className="modal fade show d-block"
       tabIndex="-1"
-      style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+      style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)', zIndex: 1060 }}
       role="dialog"
       aria-modal="true"
     >
@@ -63,26 +63,26 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
               <i className="bi bi-receipt me-2 brand-accent"></i>Invoice
             </h5>
             <div className="d-flex gap-2">
-              <button onClick={handlePrint} className="btn btn-hotelpro-gold btn-sm px-3">
+              <button onClick={handlePrint} className="btn btn-hotelpro-accent btn-sm px-3">
                 <i className="bi bi-printer me-1"></i>Print
               </button>
               <button type="button" className="btn-close btn-close-white" onClick={onClose} aria-label="Close"></button>
             </div>
           </div>
 
-          <div className="modal-body p-4 bg-light">
-            <div ref={printRef} className="bg-white rounded-3 p-4 shadow-sm">
+          <div className="modal-body p-4" style={{ backgroundColor: 'var(--hp-bg)' }}>
+            <div ref={printRef} className="rounded-3 p-4 shadow-sm border" style={{ backgroundColor: 'var(--hp-surface)', borderColor: 'var(--hp-border)' }}>
               {/* Header */}
-              <div className="d-flex justify-content-between align-items-start mb-4 pb-3 border-bottom">
+              <div className="d-flex justify-content-between align-items-start mb-4 pb-3 border-bottom" style={{ borderColor: 'var(--hp-border)' }}>
                 <div>
-                  <div className="fw-bold fs-4 text-dark">
-                    Hotel<span style={{ color: '#c5a880' }}>Pro</span>
+                  <div className="fw-bold fs-4" style={{ color: 'var(--hp-text)' }}>
+                    Hotel<span className="brand-accent">Pro</span>
                   </div>
                   <div className="text-muted small mt-1">742 Evergreen Ocean Promenade, Coastal Bay, CA 90210</div>
                   <div className="text-muted small">reservations@hotelpro.luxury</div>
                 </div>
                 <div className="text-end">
-                  <div className="fw-bold fs-5 font-serif text-dark">INVOICE</div>
+                  <div className="fw-bold fs-5 font-serif" style={{ color: 'var(--hp-text)' }}>INVOICE</div>
                   <div className="text-muted small mt-1">
                     #{booking._id?.slice(-8).toUpperCase() || 'N/A'}
                   </div>
@@ -101,17 +101,17 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
                 <div className="col-12 col-sm-6 text-sm-end">
                   <div className="text-uppercase text-muted small fw-semibold mb-1">Stay Details</div>
                   <div className="small">
-                    <div><i className="bi bi-calendar-event me-1"></i>Check-In: {formatDate(booking.checkIn)}</div>
-                    <div><i className="bi bi-calendar-check me-1"></i>Check-Out: {formatDate(booking.checkOut)}</div>
-                    <div><i className="bi bi-people me-1"></i>Guests: {booking.guests}</div>
+                    <div><i className="bi bi-calendar-event me-1 text-dark"></i>Check-In: {formatDate(booking.checkIn)}</div>
+                    <div><i className="bi bi-calendar-check me-1 text-dark"></i>Check-Out: {formatDate(booking.checkOut)}</div>
+                    <div><i className="bi bi-people me-1 text-dark"></i>Guests: {booking.guests}</div>
                   </div>
                 </div>
               </div>
 
               {/* Room Info */}
-              <div className="mb-4 p-3 rounded-3" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+              <div className="mb-4 p-3 rounded-3" style={{ background: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
                 <div className="fw-semibold small text-uppercase text-muted mb-1">Room</div>
-                <div className="fw-bold">{room.title || 'Suite'}</div>
+                <div className="fw-bold" style={{ color: 'var(--hp-brand)' }}>{room.title || 'Suite'}</div>
                 <div className="text-muted small">{room.category} · Room No. {room.roomNumber || '—'}</div>
               </div>
 
@@ -137,7 +137,7 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
                   <tfoot>
                     <tr>
                       <td colSpan="3" className="text-end fw-bold">Total</td>
-                      <td className="text-end fw-bold fs-5">{formatINR(totalAmount, true)}</td>
+                      <td className="text-end fw-bold fs-5" style={{ color: 'var(--hp-brand)' }}>{formatINR(totalAmount, true)}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -187,7 +187,7 @@ const InvoiceModal = ({ isOpen, onClose, booking, payment, guestName }) => {
                         DEMO PAYMENT
                       </span>
                     ) : (
-                      <span className="badge bg-primary-subtle text-primary border ms-2 fw-normal" style={{ fontSize: '0.7rem' }}>
+                      <span className="badge bg-info-subtle text-info border border-info-subtle ms-2 fw-normal" style={{ fontSize: '0.7rem' }}>
                         <i className="bi bi-shield-check me-1"></i>RAZORPAY VERIFIED
                       </span>
                     )}

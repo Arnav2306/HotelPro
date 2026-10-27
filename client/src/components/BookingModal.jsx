@@ -29,7 +29,7 @@ const STATUS_BADGE = {
 // --- Sub-step: Review & Confirm ---
 const ReviewStep = ({ room, checkIn, checkOut, guests, nights, total, onBack, onConfirm, submitting, error }) => (
   <div>
-    <div className="rounded-3 overflow-hidden border mb-4">
+    <div className="rounded-3 overflow-hidden border mb-4" style={{ borderColor: 'var(--hp-border)' }}>
       <img
         src={room.image}
         alt={room.title}
@@ -39,39 +39,44 @@ const ReviewStep = ({ room, checkIn, checkOut, guests, nights, total, onBack, on
     </div>
 
     <h6 className="fw-bold font-serif mb-1">{room.title}</h6>
-    <span className="badge bg-secondary-subtle text-secondary-emphasis mb-3">{room.category}</span>
+    <span
+      className="badge mb-3 px-2 py-1"
+      style={{ backgroundColor: 'var(--hp-surface-elevated)', color: 'var(--hp-accent)', border: '1px solid var(--hp-border)' }}
+    >
+      {room.category}
+    </span>
 
     <div className="row g-2 mb-3 text-sm">
       <div className="col-12 col-sm-6">
-        <div className="p-2 border rounded text-center">
-          <small className="text-muted d-block">CHECK-IN</small>
+        <div className="p-2 rounded text-center" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
+          <small className="text-muted d-block text-uppercase" style={{ fontSize: '0.70rem' }}>CHECK-IN</small>
           <strong className="small">{formatDate(checkIn)}</strong>
         </div>
       </div>
       <div className="col-12 col-sm-6">
-        <div className="p-2 border rounded text-center">
-          <small className="text-muted d-block">CHECK-OUT</small>
+        <div className="p-2 rounded text-center" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
+          <small className="text-muted d-block text-uppercase" style={{ fontSize: '0.70rem' }}>CHECK-OUT</small>
           <strong className="small">{formatDate(checkOut)}</strong>
         </div>
       </div>
     </div>
 
-    <div className="bg-light rounded-3 p-3 mb-4">
+    <div className="rounded-3 p-3 mb-4" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
       <div className="d-flex justify-content-between small text-muted mb-1">
-        <span><i className="bi bi-moon-stars me-1"></i>{nights} night{nights !== 1 ? 's' : ''}</span>
+        <span><i className="bi bi-moon-stars me-1 text-dark"></i>{nights} night{nights !== 1 ? 's' : ''}</span>
         <span>{formatINR(room.price)} × {nights}</span>
       </div>
       <div className="d-flex justify-content-between small text-muted mb-1">
-        <span><i className="bi bi-people me-1"></i>Guests</span>
+        <span><i className="bi bi-people me-1 text-dark"></i>Guests</span>
         <span>{guests}</span>
       </div>
-      <hr className="my-2" />
+      <hr className="my-2" style={{ borderColor: 'var(--hp-border)' }} />
       <div className="d-flex justify-content-between fw-bold">
         <span>Total</span>
-        <span className="fs-5">{formatINR(total)}</span>
+        <span className="fs-5" style={{ color: 'var(--hp-brand)' }}>{formatINR(total)}</span>
       </div>
       <small className="text-muted d-block mt-1">
-        <i className="bi bi-info-circle me-1"></i>Payment collected at check-in
+        <i className="bi bi-shield-check me-1 text-success"></i>Payment collected at check-in
       </small>
     </div>
 
@@ -93,7 +98,7 @@ const ReviewStep = ({ room, checkIn, checkOut, guests, nights, total, onBack, on
       </button>
       <button
         type="button"
-        className="btn btn-hotelpro-gold flex-fill fw-semibold d-flex align-items-center justify-content-center gap-2"
+        className="btn btn-hotelpro-accent flex-fill fw-semibold d-flex align-items-center justify-content-center gap-2"
         onClick={onConfirm}
         disabled={submitting}
       >
@@ -109,18 +114,18 @@ const ConfirmationStep = ({ booking, onClose }) => (
   <div className="text-center py-2">
     <div className="mb-3">
       <span
-        className="d-inline-flex align-items-center justify-content-center rounded-circle bg-success-subtle text-success"
-        style={{ width: 64, height: 64, fontSize: '2rem' }}
+        className="d-inline-flex align-items-center justify-content-center rounded-circle"
+        style={{ width: 64, height: 64, fontSize: '2rem', backgroundColor: 'var(--hp-success-subtle)', color: 'var(--hp-success)' }}
       >
         <i className="bi bi-check2-circle"></i>
       </span>
     </div>
-    <h5 className="fw-bold font-serif mb-1">Reservation Confirmed!</h5>
+    <h5 className="fw-bold font-serif mb-1">Reservation Confirmed</h5>
     <p className="text-muted small mb-3">
       Your stay at <strong>{booking.room?.title}</strong> has been reserved.
     </p>
 
-    <div className="bg-light rounded-3 p-3 mb-4 text-start">
+    <div className="rounded-3 p-3 mb-4 text-start" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
       <div className="d-flex justify-content-between small mb-1">
         <span className="text-muted">Confirmation ID</span>
         <span className="fw-semibold text-truncate ms-2" style={{ maxWidth: '160px' }}>
@@ -141,11 +146,11 @@ const ConfirmationStep = ({ booking, onClose }) => (
       </div>
       <div className="d-flex justify-content-between small">
         <span className="text-muted">Total</span>
-        <strong>{formatINR(booking.totalAmount)}</strong>
+        <strong style={{ color: 'var(--hp-brand)' }}>{formatINR(booking.totalAmount)}</strong>
       </div>
     </div>
 
-    <button className="btn btn-dark w-100 rounded-pill" onClick={onClose}>
+    <button className="btn btn-hotelpro-primary w-100 rounded-pill" onClick={onClose}>
       Done
     </button>
   </div>
@@ -233,7 +238,7 @@ const BookingModal = ({ room, initialCheckIn = '', initialCheckOut = '', initial
     <div
       className="modal fade show d-block"
       tabIndex="-1"
-      style={{ backgroundColor: 'rgba(15,23,42,0.75)', backdropFilter: 'blur(4px)' }}
+      style={{ backgroundColor: 'rgba(16, 23, 25, 0.85)', backdropFilter: 'blur(8px)' }}
       role="dialog"
       aria-modal="true"
     >
@@ -321,9 +326,9 @@ const BookingModal = ({ room, initialCheckIn = '', initialCheckOut = '', initial
                 </div>
 
                 {nights > 0 && (
-                  <div className="d-flex justify-content-between align-items-center py-2 px-3 rounded-3 bg-light border mb-3 small">
+                  <div className="d-flex justify-content-between align-items-center py-2 px-3 rounded-3 mb-3 small" style={{ backgroundColor: 'var(--hp-surface-elevated)', border: '1px solid var(--hp-border)' }}>
                     <span className="text-muted">{formatINR(room.price)} × {nights} night{nights !== 1 ? 's' : ''}</span>
-                    <span className="fw-bold fs-6">{formatINR(total)}</span>
+                    <span className="fw-bold fs-6" style={{ color: 'var(--hp-brand)' }}>{formatINR(total)}</span>
                   </div>
                 )}
 
@@ -334,7 +339,7 @@ const BookingModal = ({ room, initialCheckIn = '', initialCheckOut = '', initial
                   </div>
                 )}
 
-                <button type="submit" className="btn btn-hotelpro-gold w-100 py-2 fw-semibold">
+                <button type="submit" className="btn btn-hotelpro-accent w-100 py-2 fw-semibold">
                   <i className="bi bi-eye me-2"></i>Review Reservation
                 </button>
               </form>

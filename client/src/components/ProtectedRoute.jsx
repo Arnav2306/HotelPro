@@ -11,7 +11,7 @@ const ProtectedRoute = ({ allowedRoles = [], fallback, children }) => {
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center py-5">
-        <div className="spinner-border text-warning" role="status">
+        <div className="spinner-border" role="status" style={{ color: 'var(--hp-brand)' }}>
           <span className="visually-hidden">Loading...</span>
         </div>
       </div>
@@ -23,8 +23,11 @@ const ProtectedRoute = ({ allowedRoles = [], fallback, children }) => {
     if (fallback) return fallback;
     return (
       <div className="container py-5 text-center">
-        <div className="card shadow-sm border-0 p-5 mx-auto" style={{ maxWidth: '480px' }}>
-          <i className="bi bi-shield-lock text-warning display-4 mb-3"></i>
+        <div
+          className="card shadow-sm border p-5 mx-auto"
+          style={{ maxWidth: '480px', borderRadius: 'var(--hp-radius-lg)', borderColor: 'var(--hp-border)', backgroundColor: 'var(--hp-surface)' }}
+        >
+          <i className="bi bi-shield-lock brand-accent display-4 mb-3"></i>
           <h4 className="fw-bold font-serif">Authentication Required</h4>
           <p className="text-muted small">Please sign in to access this protected area.</p>
         </div>
@@ -37,7 +40,10 @@ const ProtectedRoute = ({ allowedRoles = [], fallback, children }) => {
     if (fallback) return fallback;
     return (
       <div className="container py-5 text-center">
-        <div className="card shadow-sm border-0 p-5 mx-auto" style={{ maxWidth: '480px' }}>
+        <div
+          className="card shadow-sm border p-5 mx-auto"
+          style={{ maxWidth: '480px', borderRadius: 'var(--hp-radius-lg)', borderColor: 'var(--hp-border)', backgroundColor: 'var(--hp-surface)' }}
+        >
           <i className="bi bi-slash-circle text-danger display-4 mb-3"></i>
           <h4 className="fw-bold font-serif">Access Denied</h4>
           <p className="text-muted small">
